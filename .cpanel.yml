@@ -1,9 +1,9 @@
 ---
 deployment:
   tasks:
-    source /home/fhzdcizd/virtualenv/backend/3.6/bin/activate && cd /home/fhzdcizd/backend
-    pip install -r requirements.txt
-    python manage.py makemigrations
-    python manage.py migrate
-    python manage.py emp_cron
-    deactivate
+    - source /home/fhzdcizd/virtualenv/backend/3.6/bin/activate && cd /home/fhzdcizd/backend
+    - pip install -r requirements.txt
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py emp_cron
+    - deactivate
