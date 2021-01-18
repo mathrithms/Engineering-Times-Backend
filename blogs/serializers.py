@@ -33,7 +33,15 @@ class BlogDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['title', 'abstract', 'thumbnail', 'main_image', 'content', 'author', 'references']
+        fields = [
+            'title',
+            'abstract',
+            'thumbnail',
+            'main_image',
+            'content',
+            'author',
+            'references'
+        ]
 
     def get_content(self, blog):
         return ContentBlockSerializer(blog.contentBlock.all(), many=True).data
@@ -59,7 +67,8 @@ class RecommendedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recommended
-        fields = ['tier1', 'tier1_image', 'tier2', 'tier2_image', 'tier3', 'tier3_image', 'tier4', 'tier4_image']
+        fields = ['tier1', 'tier1_image', 'tier2', 'tier2_image',
+                  'tier3', 'tier3_image', 'tier4', 'tier4_image']
 
     def get_blog1(self, recommended):
         return BlogRecommendedSerializer(recommended.tier1).data

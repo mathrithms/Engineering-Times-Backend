@@ -1,6 +1,10 @@
 from .models import Blog, Recommended
 from rest_framework.views import APIView
-from .serializers import BlogDetailSerializer, BlogListSerializer, RecommendedSerializer
+from .serializers import (
+    BlogDetailSerializer,
+    BlogListSerializer,
+    RecommendedSerializer
+)
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.generics import ListAPIView
@@ -33,7 +37,12 @@ class BlogsListView(ListAPIView):
             return Blog.objects.all()
         else:
             return Blog.objects.exclude(
-                id__in=[recommended.tier1.id, recommended.tier2.id, recommended.tier3.id, recommended.tier4.id])
+                id__in=[
+                    recommended.tier1.id,
+                    recommended.tier2.id,
+                    recommended.tier3.id,
+                    recommended.tier4.id
+                ])
 
 
 @api_view(['GET'])

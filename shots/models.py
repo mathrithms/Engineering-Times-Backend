@@ -23,7 +23,11 @@ class Shots(models.Model):
     text = models.TextField(max_length=200)
     image = models.ImageField()
     link = models.URLField()
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='shots')
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
+        related_name='shots'
+    )
     timestamp = models.DateTimeField(auto_now_add=True)
     importance = models.IntegerField(default=0)
     is_recommended = models.BooleanField(default=True)
@@ -37,10 +41,13 @@ class Shots(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.full_clean()
-        super(Shots, self).save(force_insert, force_update, using, update_fields)
+        super(Shots, self).save(force_insert,
+                                force_update, using, update_fields)
 
         file_name = self.image.name.split('/')[-1]
-        cdn_image = resize_upload(file_name, 'shots', str(self.id) + '_' + str(int(time.time())), (200, 200))
+        cdn_image = resize_upload(file_name, 'shots', str(
+            self.id) + '_' + str(int(time.time())), (200, 200))
         if cdn_image is not None:
             self.image = cdn_image
-            super(Shots, self).save(force_insert, force_update, using, update_fields)
+            super(Shots, self).save(force_insert,
+                                    force_update, using, update_fields)

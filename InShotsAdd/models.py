@@ -16,15 +16,31 @@ class InShotsAds(models.Model):
              update_fields=None):
         if not InShotsAds.objects.exists():
             self.full_clean()
-            super(InShotsAds, self).save(force_insert, force_update, using, update_fields)
+            super(InShotsAds, self).save(
+                force_insert,
+                force_update,
+                using,
+                update_fields
+            )
         elif not InShotsAds.objects.exclude(pk=self.pk).exists():
             self.full_clean()
-            super(InShotsAds, self).save(force_insert, force_update, using, update_fields)
+            super(InShotsAds, self).save(
+                force_insert,
+                force_update,
+                using,
+                update_fields
+            )
         else:
             raise Exception('Only one model allowed')
 
         file_name = self.image.name.split('/')[-1]
-        cdn_image = resize_upload(file_name, 'InShotsAds', str(self.id) + '_' + str(int(time.time())), (200, 200))
+        cdn_image = resize_upload(file_name, 'InShotsAds', str(self.id) +
+                                  '_' + str(int(time.time())), (200, 200))
         if cdn_image is not None:
             self.image = cdn_image
-            super(InShotsAds, self).save(force_insert, force_update, using, update_fields)
+            super(InShotsAds, self).save(
+                force_insert,
+                force_update,
+                using,
+                update_fields
+            )
