@@ -25,4 +25,5 @@ urlpatterns = [
     path('InShotsAds/', InShotsAdView),
     path('blog/', include('blogs.urls')),
     path('emp/', include('emp.urls')),
+    path('event/', include('event.api.urls', 'event_api')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

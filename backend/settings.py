@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'InShotsAdd',
     'blogs',
     'emp',
+    'event',
 ]
 
 MIDDLEWARE = [
@@ -164,10 +165,14 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
+    'DEFAULT_PAGINATION_CLASS': ('rest_framework.pagination.' +
+                                 'PageNumberPagination'),
+    'PAGE_SIZE': 10,
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://engineeringtimes.in/",
+    "http://engineeringtimes.in",
+    "https://engineeringtimes.in",
 ]
 
 BUNNY_STORAGE_KEY = os.environ.get('BUNNY_STORAGE_KEY')
