@@ -1,5 +1,6 @@
 from django.db import models
 from ImageHandler import resize_upload
+from cropperjs.models import CropperImageField
 import time
 
 
@@ -21,7 +22,7 @@ class Category(models.Model):
 class Shots(models.Model):
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=200)
-    image = models.ImageField()
+    image = CropperImageField(aspectratio=(1))
     link = models.URLField()
     category = models.ForeignKey(
         Category,

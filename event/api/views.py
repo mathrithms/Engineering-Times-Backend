@@ -1,10 +1,12 @@
 from event.api.serializers import EventSerializer
 from rest_framework.pagination import PageNumberPagination
-from event.models import Event
+from event.models import Event, Featured
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 import datetime
 from rest_framework import generics
+
+
 # from rest_framework.decorators import api_view, permission_classes
 # from rest_framework.authentication import TokenAuthentication
 # from rest_framework.permissions import IsAuthenticated
@@ -22,7 +24,8 @@ class EventListView(ListAPIView):
 
 class FeaturedListView(ListAPIView):
     date_today = datetime.date.today()
-    featured = Event.objects.filter(featured__event_id__gte=1).exists()
+
+    featured = Featured.objects.all().exists()
     if featured:
         queryset = Event.objects.filter(time__gte=date_today)
 
@@ -51,7 +54,7 @@ class EventListByYearMonth(generics.ListAPIView):
         month = self.kwargs.get(self.lookup_month_kwarg)
         year = self.kwargs.get(self.lookup_year_kwarg)
         event = Event.objects.filter(
-            time__month__gte=month, time__year__gte=year).order_by('time')
+            time__year=year, time__month=month).order_by('time')
         return event
 
 
@@ -66,7 +69,7 @@ class EventListByDateYearMonth(generics.ListAPIView):
         month = self.kwargs.get(self.lookup_month_kwarg)
         year = self.kwargs.get(self.lookup_year_kwarg)
         event = Event.objects.filter(
-            time__day__gte=date,
-            time__month__gte=month,
-            time__year__gte=year).order_by('time')
+            time__day=date,
+            time__month=month,
+            time__year=year).order_by('time')
         return event

@@ -1,5 +1,5 @@
 from django.db import models
-
+from cropperjs.models import CropperImageField
 # Create your models here.
 
 
@@ -16,10 +16,12 @@ class Event(models.Model):
     cost = models.PositiveSmallIntegerField()
     description = models.TextField(max_length=1000)
     link = models.URLField(max_length=200)
-    image = models.ImageField(
-        upload_to=upload_location, null=False, blank=True)
+    image = CropperImageField(aspectratio=(1))
     organizers = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.title)
 
 
 class Featured(models.Model):
