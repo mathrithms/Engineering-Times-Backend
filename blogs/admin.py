@@ -41,5 +41,6 @@ class RecommendedAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Blog, BlogAdmin)
+
 admin.site.register(Recommended, RecommendedAdmin)
 admin.site.register(Author, AuthorAdmin)

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cropperjs',
+    'ckeditor',
+    'ckeditor_uploader',
     'rest_framework',
     'corsheaders',
     'shots',
@@ -44,7 +46,21 @@ INSTALLED_APPS = [
     'blogs',
     'emp',
     'event',
+    'storage',
 ]
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/' + \
+    'ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -169,7 +185,6 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
-    'PAGE_SIZE': 10,
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
     'DEFAULT_PAGINATION_CLASS': ('rest_framework.pagination.' +
                                  'PageNumberPagination'),
@@ -192,3 +207,9 @@ def get_cdn_url(deploy):
 
 
 CDN_BASE_URL = get_cdn_url(DEPLOY)
+
+# Bunny Storage
+BUNNY_API_KEY = os.environ.get('BUNNY_API_KEY')
+BUNNY_STORAGE_ZONE = os.environ.get('BUNNY_STORAGE_ZONE')
+BUNNY_STORAGE_ZONE_REGION = os.environ.get('BUNNY_STORAGE_ZONE_REGION')
+BUNNY_ROOT_PATH = '/'

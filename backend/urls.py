@@ -24,5 +24,8 @@ urlpatterns = [
     path('InShotsAds/', InShotsAdView),
     path('blog/', include('blogs.urls')),
     path('emp/', include('emp.urls')),
+    path('', include('storage.urls')),
     path('event/', include('event.api.urls', 'event_api')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

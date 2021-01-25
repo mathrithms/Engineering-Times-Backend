@@ -1,6 +1,7 @@
 from django.db import models
 from ImageHandler import resize_upload
 import time
+from ckeditor.fields import RichTextField
 
 
 class Author(models.Model):
@@ -60,8 +61,7 @@ class Blog(models.Model):
 
 
 class ContentBlock(models.Model):
-    text = models.TextField(blank=True)
-    image = models.ImageField(blank=True)
+    text = RichTextField(blank=True)
     blog = models.ForeignKey(
         Blog, on_delete=models.PROTECT, related_name='contentBlock')
 
